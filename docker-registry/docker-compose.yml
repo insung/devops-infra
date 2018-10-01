@@ -1,0 +1,8 @@
+version: "2"
+services:
+  devops-registry:
+    image: registry:2.6.2    
+    ports:
+      - 5000:5000
+    volumes:
+      - ${PWD}/storage:/var/lib/registry
