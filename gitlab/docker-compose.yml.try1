@@ -1,0 +1,21 @@
+version: "3.4"
+services:
+  devops-gitlab:
+    image: gitlab/gitlab-ce:11.3.0-rc11.ce.0
+    hostname: 'git.insung.io'
+    ports:
+      - 80:80
+      - 443
+      - 22
+    volumes:
+      - ${PWD}/ssl:/etc/gitlab/ssl:ro
+      - ${PWD}/config:/etc/gitlab
+      - ${PWD}/logs:/var/log/gitlab
+      - ${PWD}/data:/var/opt/gitlab
+  devops-registry:
+    image: registry:2.6.2    
+    ports:
+      - 5000:5000
+    volumes:
+      - ${PWD}/storage:/var/lib/registry
+      - ${PWD}/ssl:/certs

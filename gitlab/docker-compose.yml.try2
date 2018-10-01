@@ -1,0 +1,24 @@
+version: "3.4"
+services:
+  web:
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'https://dev.insung.io'
+        registry_external_url 'http://registry.dev.insung.io'
+        nginx['listen_port'] = 80
+        nginx['listen_https'] = false
+        nginx['proxy_set_headers'] = { 'X-Forwarded-Proto' => 'https', 'X-Forwarded-Ssl' => 'on' }
+      VIRTUAL_HOST: dev.insung.io,registry.dev.insung.io
+      VIRTUAL_PORT: 80
+      LETSENCRYPT_EMAIL: imissyoubrad@gmail.com
+      LETSENCRYPT_HOST: dev.insung.io,registry.dev.insung.io
+      CERT_NAME: dev.insung.io
+    image: gitlab/gitlab-ce:11.3.0-rc11.ce.0
+    ports:
+      - 80
+      - 443
+      - 22
+    volumes:
+      - ${PWD}/config:/etc/gitlab
+      - ${PWD}/logs:/var/log/gitlab
+      - ${PWD}/data:/var/opt/gitlab

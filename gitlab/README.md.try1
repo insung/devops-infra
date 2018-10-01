@@ -1,0 +1,33 @@
+# Usage
+
+$ echo "127.0.0.1 dev.insung.io" >> /etc/hosts  
+$ openssl genrsa -out dev.insung.io.key 2048  
+$ openssl req -new -key dev.insung.io.key -out dev.insung.io.csr  
+
+    You are about to be asked to enter information that will be incorporated  
+    into your certificate request.  
+    What you are about to enter is what is called a Distinguished Name or a DN.  
+    There are quite a few fields but you can leave some blank  
+    For some fields there will be a default value,  
+    If you enter '.', the field will be left blank.  
+    -----  
+    Country Name (2 letter code) [AU]:ko
+    State or Province Name (full name) [Some-State]:  
+    Locality Name (eg, city) []:seoul  
+    Organization Name (eg, company) [Internet Widgits Pty Ltd]:me  
+    Organizational Unit Name (eg, section) []:  
+    Common Name (e.g. server FQDN or YOUR name) []:dev.insung.io  
+    Email Address []:imissyoubrad@gmail.com  
+
+    Please enter the following 'extra' attributes  
+    to be sent with your certificate request  
+    A challenge password []:  
+    An optional company name []:  
+
+$ openssl x509 -req -days 3650 -in dev.insung.io.csr -signkey dev.insung.io.key -out dev.insung.io.crt
+
+# 참고 사이트
+
+- https://github.com/sameersbn/docker-gitlab/blob/master/docs/container_registry.md
+- https://docs.gitlab.com/omnibus/docker/
+- http://allroundplaying.tistory.com/31
