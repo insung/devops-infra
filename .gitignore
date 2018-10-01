@@ -1,0 +1,7 @@
+nginx/logs
+docker-registry/storage
+docker-registry/registry
+gitlab/config
+gitlab/data
+gitlab/logs
+gitlab/storage
