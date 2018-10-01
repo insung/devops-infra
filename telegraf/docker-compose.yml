@@ -1,0 +1,21 @@
+version: "3"
+services:
+  devops-influxdb:
+    image: influxdb:1.5-alpine
+    ports:
+      - 8086:8086
+    networks:
+      - backend
+    restart: always
+  devops-telegraf:
+    image: telegraf:1.6-alpine
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ${PWD}/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    networks:
+      - backend
+    restart: always
+
+networks:
+  backend:
+    external: false
