@@ -1,0 +1,20 @@
+version: "3"
+services:  
+  devops-cadvisor:
+    image: google/cadvisor:v0.31.0
+    #hostname: '{{.Node.Hostname}}'
+    #command: -logtostderr -docker_only -storage_driver=influxdb -storage_driver_db=cadvisor -storage_driver_host=devops-influxdb:8086
+    ports:
+      - 80:8080
+    networks:
+      - backend
+    restart: always
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+
+networks:
+  backend:
+    external: false
