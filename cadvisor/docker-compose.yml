@@ -1,9 +1,19 @@
 version: "3"
-services:  
+services:
+  # devops-influxdb:
+  #   image: influxdb:1.5-alpine
+  #   ports:
+  #     - 8086:8086
+  #   networks:
+  #     - backend
+  #   restart: always
+  #   environment:
+  #     - PRE_CREATE_DB=cadvisor
   devops-cadvisor:
     image: google/cadvisor:v0.31.0
     #hostname: '{{.Node.Hostname}}'
     #command: -logtostderr -docker_only -storage_driver=influxdb -storage_driver_db=cadvisor -storage_driver_host=devops-influxdb:8086
+    #command: -storage_driver=influxdb -storage_driver_db=cadvisor -storage_driver_host=devops-influxdb:8086
     ports:
       - 80:8080
     networks:
@@ -14,6 +24,16 @@ services:
       - /var/run:/var/run:rw
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
+  # devops-grafana:
+  #   image: grafana/grafana:5.2.4
+  #   ports:
+  #     - 80:3000
+  #   networks:
+  #     - backend
+  #   restart: always
+  #   environment:
+  #     - GF_SECURITY_ADMIN_USER=insung
+  #     - GF_SECURITY_ADMIN_PASSWORD=insung
 
 networks:
   backend:
